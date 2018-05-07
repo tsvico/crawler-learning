@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import urllib2
-import urllib
 import os
 import sys
 from bs4 import BeautifulSoup
@@ -69,7 +68,10 @@ for n in range(1,int(max_page)+1):
                 html = urllib2.urlopen(request)
                 mess = BeautifulSoup(html,"lxml")
                 pic_url = mess.find('img',alt = title)
-                request = urllib2.Request(pic_url['src'],headers=heade)
+                if pic_url!="":
+                    request = urllib2.Request(pic_url['src'],headers=heade)
+                else:
+                    continue
                 html = urllib2.urlopen(request)
                 file_name = pic_url['src'].split(r'/')[-1]
                 f = open(file_name,'wb')
