@@ -17,7 +17,7 @@ soup = BeautifulSoup(respons.read(),"lxml")
 print soup.a
 #实际上时第一个class = 'postlist'的div里的所有a标签
 all_a = soup.find('div',class_ ='postlist').find_all('a',target='_blank')
-
+#提取用户名
 for a in all_a:
     title = a.get_text() #提取文本
     print title
