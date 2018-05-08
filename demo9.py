@@ -21,8 +21,8 @@ for a in all_a:
 
     path = str(title).strip().replace('?','') ##去掉空格
     print(path)
-    os.makedirs(os.path.join('/home/gwj/snap/demo/image/',path)) ##创建存放文件夹
-    os.chdir("/home/gwj/snap/demo/image/"+path) ##切换到上述文件夹
+    os.makedirs(os.path.join('/home/gwj/snap/demo/images/',path)) ##创建存放文件夹
+    os.chdir("/home/gwj/snap/demo/images/"+path) ##切换到上述文件夹
 
 
     href = a['href']     ##取出a标签的href属性
