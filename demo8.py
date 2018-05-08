@@ -58,7 +58,10 @@ for n in range(1,int(max_page)+1):
             html = urllib2.urlopen(request2)
             mess = BeautifulSoup(html,"lxml")
             pic_max = mess.find_all('span')
-            pic_max = pic_max[10].text #最大页数
+            if len(pic_max):
+                pic_max = pic_max[10].text #最大页数
+            else:
+                pic_max = '10'
             if(flag == 1 and len(os.listdir(path+title.strip().replace('?',''))) >= int(pic_max)):
                 print('已经保存完毕，跳过')
                 continue
@@ -68,14 +71,15 @@ for n in range(1,int(max_page)+1):
                 html = urllib2.urlopen(request)
                 mess = BeautifulSoup(html,"lxml")
                 pic_url = mess.find('img',alt = title)
-                if pic_url!="":
-                    request = urllib2.Request(pic_url['src'],headers=heade)
-                else:
+                if pic_url is None:
                     continue
+                else:
+                    request = urllib2.Request(pic_url['src'],headers=heade)
+
                 html = urllib2.urlopen(request)
                 file_name = pic_url['src'].split(r'/')[-1]
                 f = open(file_name,'wb')
                 f.write(html.read())
                 f.close()
             print "完成"
-        print "第",n,"页完成"
+            print "第",n,"页完成"

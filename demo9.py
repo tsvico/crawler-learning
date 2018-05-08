@@ -19,7 +19,7 @@ all_a = soup.find('div',class_ ='all').find_all('a')##意思是先查找 class�
 for a in all_a:
     title = a.get_text() ##取出a标签的文本
 
-    path = str(title).strip() ##去掉空格
+    path = str(title).strip().replace('?','') ##去掉空格
     print(path)
     os.makedirs(os.path.join('/home/gwj/snap/demo/image/',path)) ##创建存放文件夹
     os.chdir("/home/gwj/snap/demo/image/"+path) ##切换到上述文件夹
