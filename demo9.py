@@ -5,14 +5,40 @@ import os
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
-heades = {
-    'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36',
-    'Referer':'http://www.mzitu.com',
-}
+##请求模块
+def request(url):
+    heades = {
+        'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36',
+        'Referer':'http://www.mzitu.com',
+    }
+    req = urllib2.Request(url,headers=heades)
+    html = urllib2.urlopen(req)
+    return html
+#下载图片
+def download(max_span):
+    for page in range(1,int(max_span)+1):  #如果list空了只要十页图片
+        page_url = href + '/' +str(page)  #专辑编号加上页码
+        print(page_url) #图片页面地址 会报错
+
+        img_html = request(page_url)
+
+        img_soup = BeautifulSoup(img_html,"lxml")
+        #img_url = img_soup.find('div',class_='main-image').find('img')['src']
+        img_url = img_soup.find('img',alt = title)
+        if img_url is None:
+            continue
+        else:
+            img_url = img_url['src']
+        ##print(img_url)
+        name = img_url[-9:-4]##取URL 倒数第四至第九位 做图片的名字
+        img = request(img_url)
+        f = open(name+'.jpg','ab')#写入多媒体文件必须要b这个参数
+        f.write(img.read())
+        f.close()
+
 path = "/home/gwj/snap/demo/images/"
 all_url = 'http://www.mzitu.com/all' ##开始的ｕｒｌ
-request = urllib2.Request(all_url,headers=heades)
-start_html = urllib2.urlopen(request)
+start_html = request(all_url)
 #print(start_html.read())
 
 soup = BeautifulSoup(start_html,"lxml") #使用BeautifulSoup来解析我们获取到的网页（‘lxml’是指定的解析器
@@ -33,8 +59,8 @@ for a in all_a:
         print(href)
         if href.find("old") != -1:
           continue
-        request = urllib2.Request(href,headers=heades)
-        html = urllib2.urlopen(request)
+
+        html = request(href)
         html_soup = BeautifulSoup(html,"lxml")
         list = html_soup.find_all('span')
 
@@ -45,23 +71,4 @@ for a in all_a:
             max_span='10'
         print(max_span)
         #for page in range(1,int(max_span)+1):
-        for page in range(1,int(max_span)+1):  #如果list空了只要十页图片
-            page_url = href + '/' +str(page)  #专辑编号加上页码
-            print(page_url) #图片页面地址 会报错
-            request = urllib2.Request(page_url,headers=heades)
-            img_html = urllib2.urlopen(request)
-
-            img_soup = BeautifulSoup(img_html,"lxml")
-            #img_url = img_soup.find('div',class_='main-image').find('img')['src']
-            img_url = img_soup.find('img',alt = title)
-            if img_url is None:
-                continue
-            else:
-                img_url = img_url['src']
-        ##print(img_url)
-            name = img_url[-9:-4]##取URL 倒数第四至第九位 做图片的名字
-            request = urllib2.Request(img_url,headers=heades)
-            img = urllib2.urlopen(request)
-            f = open(name+'.jpg','ab')#写入多媒体文件必须要b这个参数
-            f.write(img.read())
-            f.close()
+        download(max_span)
