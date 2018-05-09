@@ -43,7 +43,11 @@ class Producer(threading.Thread):
             gLock.acquire()
             for img in img_list:
                 title = img['alt']
-                src = img['data-original']
+                if len(img_list):
+                    src = img['data-original']
+                else:
+                    continue
+
                 print(title)
                 print(src)
                 # 把提取到的表情url，添加到FACE_URL_LIST中
@@ -71,7 +75,11 @@ class Consumer(threading.Thread):
                 filename = FACE_NAME_LIST.pop()
                 gLock.release()
                 z = face_url[-4:]  #后缀取名
-                path = 'images2'+ '/' +filename.strip()+z
+
+                #防止名字过长出错　２０１８．０９．０５
+                if len(filename) > 20 :
+                    filename = filename[:20]
+                path = 'images2'+ '/' +filename.strip().replace('?','')+z
                 urllib.urlretrieve(face_url,path)
 
 
