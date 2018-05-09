@@ -32,5 +32,6 @@ for page_url in PAGE_URL_LIST:
         filename = title
         #拼接路径下载
         #path = os.path.join("image2",filename)
-        path = 'images2'+ '/' +title.strip().replace('?','')
+        z = src[-4:]  #后缀取名
+        path = 'images2'+ '/' +title.strip().replace('?','')+z
         urllib.urlretrieve(src,path)
