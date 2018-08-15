@@ -13,12 +13,18 @@ try:
     browser.get("https://www.baidu.com")
     input = browser.find_element_by_id("kw")
     input.send_keys("Python")
+    time.sleep(2)
+    input.clear()
+    input.send_keys("java")
     input.send_keys(Keys.ENTER)
     wait=WebDriverWait(browser,10)
     wait.until(EC.presence_of_all_elements_located((By.ID,"content_left")))
     print browser.current_url
+    js = 'alert("当前网址是:http://www.baidu.com")'
+    print js
+    browser.execute_script(js)
     #print browser.get_cookie()
-    print browser.page_source
+    #print browser.page_source
     time.sleep(10)
 finally:
     browser.close()
