@@ -2,7 +2,7 @@
 #多线程版本
 import requests
 import threading
-import urllib.request, urllib.parse, urllib.error
+import urllib
 import time
 from bs4 import BeautifulSoup
 PAGE_URL_LIST = []
@@ -61,7 +61,7 @@ class Producer(threading.Thread):
 #消费者，负责从FACE_URL_LIST中提取链接，并下载
 class Consumer(threading.Thread):
     def run(self):
-        print('%s is runing' % threading.current_thread())
+        print '%s is runing' % threading.current_thread()
         while True:
             #上锁
             gLock.acquire()
@@ -80,7 +80,7 @@ class Consumer(threading.Thread):
                 if len(filename) > 20 :
                     filename = filename[:20]
                 path = 'images2'+ '/' +filename.strip().replace('?','')+z
-                urllib.request.urlretrieve(face_url,path)
+                urllib.urlretrieve(face_url,path)
 
 
 if __name__=='__main__':

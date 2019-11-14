@@ -1,7 +1,7 @@
 #encoding: utf-8
 import requests
 import threading
-import urllib.request, urllib.parse, urllib.error
+import urllib
 from bs4 import BeautifulSoup
 PAGE_URL_LIST = []
 #表情包链接列表
@@ -34,4 +34,4 @@ for page_url in PAGE_URL_LIST:
         #path = os.path.join("image2",filename)
         z = src[-4:]  #后缀取名
         path = 'images2'+ '/' +title.strip().replace('?','')+z
-        urllib.request.urlretrieve(src,path)
+        urllib.urlretrieve(src,path)

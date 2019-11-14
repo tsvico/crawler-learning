@@ -4,17 +4,17 @@
 #获取Cookie保存到文件
 #
 ######
-import http.cookiejar
-import urllib.request, urllib.error, urllib.parse
+import cookielib
+import urllib2
 
 #设置保存cookie的文件
 filenme = 'cookie.txt'
 #声明一个MozillaCookieJar对象实例来保存cookie，之后写入文件
-cookie = http.cookiejar.MozillaCookieJar(filenme)
+cookie = cookielib.MozillaCookieJar(filenme)
 #利用urllib2库的HTTPCookieProcessor对象来创建cookie处理器
-handle = urllib.request.HTTPCookieProcessor(cookie)
+handle = urllib2.HTTPCookieProcessor(cookie)
 #通过handle来构建opener
-opener = urllib.request.build_opener(handle)
+opener = urllib2.build_opener(handle)
 #此处的open方法同urllib2的urlopen方法，也可以传入request
 response = opener.open('http://www.baidu.com')
 #保存cookie到文件

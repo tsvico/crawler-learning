@@ -16,8 +16,8 @@ soup = BeautifulSoup(html)
 #从本地ＨＴＭＬ文件创建对象
 #soup = BeautifulSoup(open('index.html'))
 #格式化输出ｓｏｕｐ
-print(soup.prettify())
-print(soup.title)
-print(soup.head)
+print soup.prettify()
+print soup.title
+print soup.head
 #
-print(soup.name)
+print soup.name
