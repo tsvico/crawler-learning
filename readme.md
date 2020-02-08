@@ -3,7 +3,7 @@
 我的博客有相关教程    
 http://blog.peoplevip.cn 
 
-> 运行2to3
+> 已经使用2to3 对项目文件进行从python2到3的转化
 
 ```python
 python 2to3.py -w ***.py
