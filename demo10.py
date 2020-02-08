@@ -1,4 +1,10 @@
 #encoding: utf-8
+
+#xPath //li[@class='list-group-item']//img[@class='img-responsive lazy image_dta loaded']/@src
+# 或者
+# //li[@class='list-group-item']//img[@referrerpolicy='no-referrer']/@src
+# Xpath使用方式见getIp138_2.py
+
 import requests
 import threading
 import urllib.request, urllib.parse, urllib.error
