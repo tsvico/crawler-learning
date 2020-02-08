@@ -1,6 +1,8 @@
 #获取ip的信息
+#使用BeautifulSoup
 import requests
 from bs4 import BeautifulSoup #BeautifulSoup4库
+
 url = 'http://ip138.com/'
 html=requests.get(url,allow_redirects=False)
 text = html.text.encode(html.encoding).decode('gb2312')

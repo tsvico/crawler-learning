@@ -1,4 +1,7 @@
-import urllib.request, urllib.error, urllib.parse
-request = urllib.request.Request("http://www.baidu.com")
-respons=urllib.request.urlopen(request)
-print(respons.read())
+####
+#最简单的请求
+####
+import requests
+url = "http://www.baidu.com"
+request = requests.get(url)
+print(request.text)
